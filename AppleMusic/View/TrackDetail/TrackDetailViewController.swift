@@ -13,10 +13,9 @@ final class TrackDetailViewController: UIViewController {
     weak var delegate: TrackDetailViewDelegate?
     weak var trackMovingDelegate: TrackMovingDelegate?
     weak var addedDelegate: AddedTrackMovingDelegate?
-    weak var tabBardelegate: TabBarControllerDelegate?
-    
+   
     private let trackDetailView = TrackDetailView()
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
@@ -64,10 +63,10 @@ final class TrackDetailViewController: UIViewController {
                            initialSpringVelocity: 1,
                            options: .curveEaseOut) {
                 self.trackDetailView.transform = .identity
-                if translation.y > 50 {
+                if translation.y > 100 {
                     
                     self.delegate?.dismissButton()
-                    self.tabBardelegate?.minizeTrackDetail()
+                    
                 }
             }
         default:

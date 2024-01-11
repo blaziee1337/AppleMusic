@@ -50,10 +50,12 @@ class TrackDetailViewModel {
             let playerItem = AVPlayerItem(url: url)
             player.replaceCurrentItem(with: playerItem)
             player.play()
+            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
             NotificationCenter.default.addObserver(self, selector: #selector(trackDidEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
             NotificationCenter.default.addObserver(self, selector: #selector(addedTrackDidEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
             player.automaticallyWaitsToMinimizeStalling = false
             player.volume = 0.5
+        
         
     }
     
@@ -82,6 +84,7 @@ extension TrackDetailViewModel: TrackDetailViewDelegate {
     func didTapPlayPauseButton() {
         if player.timeControlStatus == .playing {
             player.pause()
+           
         } else if player.timeControlStatus == .paused {
             player.play()
             

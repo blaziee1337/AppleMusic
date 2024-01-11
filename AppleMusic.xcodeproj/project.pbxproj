@@ -36,6 +36,7 @@
 /* Begin PBXFileReference section */
 		6568C5B12B318DF300D74852 /* Extension + CMTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + CMTime.swift"; sourceTree = "<group>"; };
 		6568C5B32B318E3300D74852 /* Extension + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIImage.swift"; sourceTree = "<group>"; };
+		6569A94A2B4E062C00D1A0BA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		656B27102ACF250600BFCAC5 /* TrackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailView.swift; sourceTree = "<group>"; };
 		65A5F2152B1F755C00F4D17D /* AddedTracks.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AddedTracks.xcdatamodel; sourceTree = "<group>"; };
 		65A5F2172B20963400F4D17D /* LibraryViewController + Tableview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryViewController + Tableview.swift"; sourceTree = "<group>"; };
@@ -44,7 +45,6 @@
 		65D867E52ABC4D15007D1E95 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		65D867EC2ABC4D16007D1E95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65D867EF2ABC4D16007D1E95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		65D867F12ABC4D16007D1E95 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "../../Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		65D867F72ABC4DA7007D1E95 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		65D867FA2ABC4E02007D1E95 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		65D867FC2ABC4F33007D1E95 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -199,7 +199,7 @@
 				65D867E32ABC4D15007D1E95 /* AppDelegate.swift */,
 				65D867E52ABC4D15007D1E95 /* SceneDelegate.swift */,
 				65D867EC2ABC4D16007D1E95 /* Assets.xcassets */,
-				65D867F12ABC4D16007D1E95 /* Info.plist */,
+				6569A94A2B4E062C00D1A0BA /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";

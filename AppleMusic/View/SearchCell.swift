@@ -78,23 +78,28 @@ final class SearchCell: UITableViewCell {
     }
     
     private func setImage(urlString: String?) {
+        DispatchQueue.global().async {
+            
         if let urlString = urlString {
             NetworkRequest.shared.request(urlString: urlString) { [weak self] result in
-                switch result {
-                case .success(let data):
-                    let image = UIImage(data: data)
-                    self?.trackImageView.image = image
-                case .failure(let error):
-                    self?.trackImageView.image = UIImage(systemName: "questionmark")
-                    print("No album logo:", error.localizedDescription)
+                    switch result {
+                    case .success(let data):
+                        DispatchQueue.main.async {
+                            
+                            let image = UIImage(data: data)
+                            self?.trackImageView.image = image
+                        }
+                    case .failure(let error):
+                        self?.trackImageView.image = UIImage(systemName: "questionmark")
+                        print("No album logo:", error.localizedDescription)
+                        
+                    }
                     
                 }
-                
+            } else {
+                self.trackImageView.image = UIImage(systemName: "questionmark")
             }
-        } else {
-            trackImageView.image = UIImage(systemName: "questionmark")
         }
-        
     }
     
     private func checkTrack() {

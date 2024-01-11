@@ -15,7 +15,6 @@ final class SearchViewController: UIViewController {
     let networkDataFetch = NetworkDataFetcher()
     let searchViewModel = SearchCell()
     
-    weak var tabBardelegate: TabBarControllerDelegate?
     var searchModel = SearchCellViewModel.init(cells: [])
     
     private var timer: Timer?

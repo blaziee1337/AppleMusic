@@ -34,7 +34,7 @@ final class TrackDetailView: UIView {
     var cell: SearchCellViewModel.Cell?
     var model: AddedTracks?
     var isPlaying = true
-
+    
     weak var delegate: TrackDetailViewDelegate?
     weak var trackMovingDelegate: TrackMovingDelegate?
     weak var addedDelegate: AddedTrackMovingDelegate?
@@ -45,10 +45,8 @@ final class TrackDetailView: UIView {
     
     private let trackImageView: UIImageView = {
         let image = UIImageView()
-        image.layer.masksToBounds = true
         image.layer.cornerRadius = 16
         image.contentMode = .scaleAspectFit
-      //  image.frame = CGRect(x: 0, y: 0, width: 315, height: 315)
         return image
     }()
     
@@ -154,46 +152,7 @@ final class TrackDetailView: UIView {
         return button
     }()
     
-    // MARK: - MiniTrack View
-    
-    private let miniTrackImageView: UIImageView = {
-        let image = UIImageView()
-        image.layer.cornerRadius = 30
-        image.contentMode = .scaleAspectFit
-        return image
-    }()
-    
-    private let miniTrackNameLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.numberOfLines = 1
-        label.font = .systemFont(ofSize: 16, weight: .semibold)
-        return label
-    }()
-    private let miniPauseButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .white
-        let image = UIImage(systemName: "pause.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 30)))
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
-    private let miniForwardButton: UIButton = {
-        let button = UIButton()
-        button.tintColor = .white
-        let image = UIImage(systemName: "forward.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 30)))
-        button.setImage(image, for: .normal)
-        return button
-    }()
-    
-    
-    let miniTrackView: UIView = {
-        let view = UIView()
-        view.isHidden = true
-        view.backgroundColor = UIColor(red: 32/255, green: 32/255, blue: 32/255, alpha: 1.0)
-        view.layer.cornerRadius = 20
-        return view
-    }()
+   //MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -210,10 +169,7 @@ final class TrackDetailView: UIView {
         volumeSlider.addTarget(self, action: #selector(didChangeVolume), for: .valueChanged)
         currerenTimeSlider.addTarget(self, action: #selector(didChangeTime), for: .valueChanged)
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
-        
-        miniPauseButton.addTarget(self, action: #selector(didTapPlayPause), for: .touchUpInside)
-        miniForwardButton.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
-       // animateText()
+        //animateText()
     }
     
     required init?(coder: NSCoder) {
@@ -223,10 +179,8 @@ final class TrackDetailView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = bounds
-        //animateText()
+        
     }
-    
-
     
     @objc private func didTapBack() {
         trackMovingDelegate?.moveBack()
@@ -280,11 +234,7 @@ final class TrackDetailView: UIView {
         addSubview(currentTimeLabel)
         addSubview(remainingTimeLabel)
         addSubview(dismissButton)
-        addSubview(miniTrackView)
-        miniTrackView.addSubview(miniTrackImageView)
-        miniTrackView.addSubview(miniTrackNameLabel)
-        miniTrackView.addSubview(miniPauseButton)
-        miniTrackView.addSubview(miniForwardButton)
+        
     }
     
     // MARK: - Constraints
@@ -374,35 +324,6 @@ final class TrackDetailView: UIView {
             
         }
         
-        miniTrackView.snp.makeConstraints { make in
-            make.height.equalTo(70)
-            make.width.equalTo(400)
-        }
-        
-        miniTrackImageView.snp.makeConstraints { make in
-            make.top.equalTo(miniTrackView).offset(5)
-            make.left.equalTo(miniTrackView).offset(5)
-            make.bottom.equalTo(miniTrackView).offset(-5)
-            make.width.equalTo(90)
-            
-        }
-        
-        miniTrackNameLabel.snp.makeConstraints { make in
-            make.width.equalTo(150)
-            make.left.equalTo(miniTrackImageView).inset(90)
-            make.top.equalTo(miniTrackImageView).offset(20)
-        }
-        
-        miniPauseButton.snp.makeConstraints { make in
-            make.right.equalTo(miniTrackNameLabel).offset(75)
-            make.top.equalTo(miniTrackView).offset(20)
-        }
-        
-        miniForwardButton.snp.makeConstraints { make in
-            make.right.equalTo(miniPauseButton).offset(65)
-            make.top.equalTo(miniTrackView).offset(20)
-        }
-        
     }
     
     // MARK: - Player Config
@@ -413,10 +334,8 @@ final class TrackDetailView: UIView {
             NetworkRequest.shared.request(urlString: urlString) { [weak self] result in
                 switch result {
                 case .success(let data):
-                    guard let image = UIImage(data: data)?.withRenderingMode(.alwaysOriginal) else { return }
-                    self?.trackImageView.tintColor = .gray
+                    guard let image = UIImage(data: data) else { return }
                     self?.trackImageView.image = image
-                    self?.miniTrackImageView.image = image
                     self?.configBackground(image)
                     
                 case .failure(let error):
@@ -434,13 +353,11 @@ final class TrackDetailView: UIView {
     
     func playerConfig(_ viewModel: SearchCellViewModel.Cell) {
         self.cell = viewModel
-        miniTrackNameLabel.text = viewModel.trackName
         trackNameLabel.text = viewModel.trackName
         artistNameLabel.text = viewModel.artistName
         guard let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600") else { return }
         setImage(urlString: string600)
         trackImageView.image = UIImage(named: string600)
-        miniTrackImageView.image = UIImage(named: string600)
         let pauseImage = UIImage(systemName: "pause.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 40)))
 
         playPauseButton.setImage(pauseImage, for: .normal)
@@ -483,8 +400,6 @@ final class TrackDetailView: UIView {
     
     private func animateText() {
         
-        
-            
         if trackNameLabel.text?.count ?? 0 > 30, isPlaying == false {
             //self.layoutIfNeeded()
             let labelMid = self.trackNameLabel.frame.midX
@@ -493,14 +408,14 @@ final class TrackDetailView: UIView {
             let labelAnimate = CABasicAnimation(keyPath: "position.x")
             
             
-            labelAnimate.fromValue = NSNumber(value: labelMid)
-            labelAnimate.toValue = NSNumber(value: labelLHS)
+            labelAnimate.fromValue = labelMid
+            labelAnimate.toValue = labelLHS
             labelAnimate.beginTime = 3
             labelAnimate.duration = 10
             
             let labelAnimate1 = CABasicAnimation(keyPath: "position.x")
-            labelAnimate1.fromValue =  NSNumber(value: labelRHS)
-            labelAnimate1.toValue =  NSNumber(value: labelLHS)
+            labelAnimate1.fromValue =  labelRHS
+            labelAnimate1.toValue =  labelLHS
             labelAnimate1.beginTime = 10
             labelAnimate1.duration = 20
             

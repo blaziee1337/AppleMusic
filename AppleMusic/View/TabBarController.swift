@@ -7,12 +7,9 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
-protocol TabBarControllerDelegate: AnyObject {
-    func minizeTrackDetail()
-    func maximizeTrackDetail(viewModel: SearchCellViewModel.Cell?)
-}
-class TabBarController: UITabBarController {
+final class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,23 +42,6 @@ class TabBarController: UITabBarController {
         return nav
     }
     
-    
-    
-    
-    //
-    
-    //    func changeHeightOfTabbar() {
-    //
-    //        if UIDevice().userInterfaceIdiom == .phone {
-    //            var tabFrame = tabBar.frame
-    //            tabFrame.size.height = 85
-    //            tabFrame.origin.y = view.frame.size.height - 85
-    //            tabBar.frame = tabFrame
-    //        }
-    //    }
 }
-
-
-
 
 
