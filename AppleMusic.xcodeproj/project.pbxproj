@@ -125,8 +125,8 @@
 		659AB4322B3EFD2100F4B66D /* TrackDetail */ = {
 			isa = PBXGroup;
 			children = (
-				65D868172AC854C3007D1E95 /* TrackDetailViewController.swift */,
 				656B27102ACF250600BFCAC5 /* TrackDetailView.swift */,
+				65D868172AC854C3007D1E95 /* TrackDetailViewController.swift */,
 			);
 			path = TrackDetail;
 			sourceTree = "<group>";

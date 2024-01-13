@@ -111,7 +111,6 @@ extension TrackDetailViewController: TrackMovingDelegate {
         
     }
     
-    
 }
 
 extension TrackDetailViewController: AddedTrackMovingDelegate {

@@ -169,7 +169,7 @@ final class TrackDetailView: UIView {
         volumeSlider.addTarget(self, action: #selector(didChangeVolume), for: .valueChanged)
         currerenTimeSlider.addTarget(self, action: #selector(didChangeTime), for: .valueChanged)
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
-        //animateText()
+        animateText()
     }
     
     required init?(coder: NSCoder) {
@@ -179,7 +179,7 @@ final class TrackDetailView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = bounds
-        
+        animateText()
     }
     
     @objc private func didTapBack() {
@@ -364,6 +364,7 @@ final class TrackDetailView: UIView {
         currerenTimeSlider.value = 0
         enlargeImage()
         isPlaying = true
+        
     }
     
     func configAddedTracks(_ viewModel: AddedTracks) {
@@ -400,13 +401,12 @@ final class TrackDetailView: UIView {
     
     private func animateText() {
         
-        if trackNameLabel.text?.count ?? 0 > 30, isPlaying == false {
-            //self.layoutIfNeeded()
+        if trackNameLabel.text?.count ?? 0 > 30 {
+            
             let labelMid = self.trackNameLabel.frame.midX
             let labelLHS = self.trackNameLabel.frame.minX - self.trackNameLabel.frame.width
             let labelRHS = (self.trackNameLabel.frame.maxX) + (self.trackNameLabel.frame.width)
             let labelAnimate = CABasicAnimation(keyPath: "position.x")
-            
             
             labelAnimate.fromValue = labelMid
             labelAnimate.toValue = labelLHS
@@ -424,7 +424,7 @@ final class TrackDetailView: UIView {
             group.duration = 20
             group.repeatCount = .zero
             group.beginTime = 0
-            self.trackNameLabel.layer.add(group, forKey: "basic")
+            trackNameLabel.layer.add(group, forKey: "basic")
             
             
         }
