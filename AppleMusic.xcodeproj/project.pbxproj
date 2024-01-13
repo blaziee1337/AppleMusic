@@ -95,15 +95,6 @@
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
-		659AB42F2B3A1C3D00F4B66D /* TrackCell */ = {
-			isa = PBXGroup;
-			children = (
-				65D868142AC423E5007D1E95 /* SearchCell.xib */,
-				65D868132AC423E5007D1E95 /* SearchCell.swift */,
-			);
-			name = TrackCell;
-			sourceTree = "<group>";
-		};
 		659AB4302B3EFCB400F4B66D /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +128,16 @@
 				65A5F2142B1F755C00F4D17D /* AddedTracks.xcdatamodeld */,
 			);
 			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		65AE08552B527AE100B4AA8E /* TrackCell */ = {
+			isa = PBXGroup;
+			children = (
+				65D868142AC423E5007D1E95 /* SearchCell.xib */,
+				65D868132AC423E5007D1E95 /* SearchCell.swift */,
+			);
+			name = TrackCell;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		65D867D72ABC4D15007D1E95 = {
@@ -186,7 +187,7 @@
 				65D867F72ABC4DA7007D1E95 /* TabBarController.swift */,
 				659AB4312B3EFCFD00F4B66D /* Library */,
 				659AB4302B3EFCB400F4B66D /* Search */,
-				659AB42F2B3A1C3D00F4B66D /* TrackCell */,
+				65AE08552B527AE100B4AA8E /* TrackCell */,
 				659AB4322B3EFD2100F4B66D /* TrackDetail */,
 			);
 			path = View;
