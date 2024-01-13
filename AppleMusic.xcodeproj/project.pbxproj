@@ -104,15 +104,6 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		659AB4312B3EFCFD00F4B66D /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				65D867FE2ABC4F55007D1E95 /* LibraryViewController.swift */,
-				65A5F2172B20963400F4D17D /* LibraryViewController + Tableview.swift */,
-			);
-			name = Library;
-			sourceTree = "<group>";
-		};
 		659AB4322B3EFD2100F4B66D /* TrackDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,13 +121,22 @@
 			path = "Core Data";
 			sourceTree = "<group>";
 		};
-		65AE08562B527B9C00B4AA8E /* TrackCell */ = {
+		65AE08572B527FD400B4AA8E /* TrackCell */ = {
 			isa = PBXGroup;
 			children = (
-				65D868142AC423E5007D1E95 /* SearchCell.xib */,
 				65D868132AC423E5007D1E95 /* SearchCell.swift */,
+				65D868142AC423E5007D1E95 /* SearchCell.xib */,
 			);
-			name = TrackCell;
+			path = TrackCell;
+			sourceTree = "<group>";
+		};
+		65AE08582B52802E00B4AA8E /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				65D867FE2ABC4F55007D1E95 /* LibraryViewController.swift */,
+				65A5F2172B20963400F4D17D /* LibraryViewController + Tableview.swift */,
+			);
+			path = Library;
 			sourceTree = "<group>";
 		};
 		65D867D72ABC4D15007D1E95 = {
@@ -183,10 +183,10 @@
 		65D868002ABC4F5C007D1E95 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				65AE08562B527B9C00B4AA8E /* TrackCell */,
 				65D867F72ABC4DA7007D1E95 /* TabBarController.swift */,
-				659AB4312B3EFCFD00F4B66D /* Library */,
+				65AE08582B52802E00B4AA8E /* Library */,
 				659AB4302B3EFCB400F4B66D /* Search */,
+				65AE08572B527FD400B4AA8E /* TrackCell */,
 				659AB4322B3EFD2100F4B66D /* TrackDetail */,
 			);
 			path = View;
