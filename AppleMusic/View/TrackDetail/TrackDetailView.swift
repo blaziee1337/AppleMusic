@@ -46,6 +46,8 @@ final class TrackDetailView: UIView {
     private let trackImageView: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 16
+        image.clipsToBounds = true
+        image.layer.masksToBounds = true
         image.contentMode = .scaleAspectFit
         return image
     }()
@@ -169,7 +171,7 @@ final class TrackDetailView: UIView {
         volumeSlider.addTarget(self, action: #selector(didChangeVolume), for: .valueChanged)
         currerenTimeSlider.addTarget(self, action: #selector(didChangeTime), for: .valueChanged)
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
-        animateText()
+        //animateText()
     }
     
     required init?(coder: NSCoder) {
@@ -249,18 +251,18 @@ final class TrackDetailView: UIView {
         
         trackImageView.snp.makeConstraints { make in
             //make.left.right.equalToSuperview().inset(15)
-            make.centerX.equalToSuperview()
+            
             make.top.equalTo(dismissButton).offset(100)
           //  make.top.equalToSuperview().offset(-15)
-            //make.height.equalTo(350)
-            make.width.equalTo(350)
-            make.height.equalTo(350)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(UIScreen.main.bounds.width *  0.9) // Используйте долю ширины экрана
+            make.height.equalTo(UIScreen.main.bounds.width * 0.9)
         }
         
         trackNameLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().inset(20)
             make.top.equalTo(trackImageView.snp.bottom).offset(20)
-           // make.center.equalToSuperview().offset(70)
+           
         }
         
         artistNameLabel.snp.makeConstraints { make in
