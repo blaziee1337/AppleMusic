@@ -43,6 +43,14 @@ final class TrackDetailView: UIView {
     
     // MARK: - UI
     
+    private let dismissButton: UIButton = {
+        let button = UIButton()
+        button.tintColor = .white
+        let image = UIImage(systemName: "minus", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 50)))
+        button.setImage(image, for: .normal)
+        return button
+    }()
+    
     private let trackImageView: UIImageView = {
         let image = UIImageView()
         image.layer.cornerRadius = 16
@@ -56,6 +64,9 @@ final class TrackDetailView: UIView {
         let label = UILabel()
         label.textColor = .white
         label.numberOfLines = 1
+        label.lineBreakMode = .byWordWrapping
+        label.frame = CGRect(x: 0, y: 0, width: 500, height: 0)
+       // label.adjustsFontSizeToFitWidth = true
         label.font = .systemFont(ofSize: 21, weight: .semibold)
         return label
         
@@ -63,13 +74,14 @@ final class TrackDetailView: UIView {
     
     private let artistNameLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .systemGray5
+        label.textColor = .systemGray4
         label.numberOfLines = 1
+        label.sizeToFit()
         label.font = .systemFont(ofSize: 20, weight: .regular)
         return label
     }()
     
-    private let backButton: UIButton = {
+    private let backwardButton: UIButton = {
         let button = UIButton()
         button.tintColor = .white
         let image = UIImage(systemName: "backward.fill",withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 30)))
@@ -82,7 +94,6 @@ final class TrackDetailView: UIView {
         button.tintColor = .white
         let image = UIImage(systemName: "forward.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 30)))
         button.setImage(image, for: .normal)
-        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
         return button
     }()
     
@@ -92,28 +103,6 @@ final class TrackDetailView: UIView {
         let image = UIImage(systemName: "pause.fill", withConfiguration: UIImage.SymbolConfiguration(font: .systemFont(ofSize: 40)))
         button.setImage(image, for: .normal)
         return button
-    }()
-    
-    private let volumeSlider: UISlider = {
-        let slider = UISlider()
-        slider.minimumTrackTintColor = .systemGray5
-        slider.maximumTrackTintColor = .darkGray
-        slider.value = 0.5
-        return slider
-    }()
-    
-    private let minVolumeIcon: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(systemName: "volume.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
-        image.tintColor = .white
-        return image
-    }()
-    
-    private let maxVolumeIcon: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(systemName: "volume.3.fill", withConfiguration: UIImage.SymbolConfiguration(scale: .small))
-        image.tintColor = .white
-        return image
     }()
     
     private let currerenTimeSlider: UISlider = {
@@ -127,7 +116,7 @@ final class TrackDetailView: UIView {
         slider.setThumbImage(largeThumb, for: .highlighted)
         slider.value = 0
         slider.minimumTrackTintColor = .white
-        slider.maximumTrackTintColor = .darkGray
+        slider.maximumTrackTintColor = .systemGray
         return slider
     }()
     
@@ -147,31 +136,93 @@ final class TrackDetailView: UIView {
         return label
     }()
     
-    private let dismissButton: UIButton = {
-        let button = UIButton()
-        let image = UIImage(named: "line")
-        button.setImage(image, for: .normal)
-        return button
+    private let volumeSlider: UISlider = {
+        let slider = UISlider()
+        slider.minimumTrackTintColor = .systemGray5
+        slider.maximumTrackTintColor = .systemGray
+        slider.value = 0.5
+        return slider
+    }()
+    
+    private let minVolumeIcon: UIImageView = {
+        let image = UIImageView()
+        let configurationSmall = UIImage.SymbolConfiguration(pointSize: 10)
+        image.image = UIImage(systemName: "volume.fill", withConfiguration: configurationSmall)
+        image.tintColor = .white
+        return image
+    }()
+    
+    private let maxVolumeIcon: UIImageView = {
+        let image = UIImageView()
+        let configurationSmall = UIImage.SymbolConfiguration(pointSize: 10)
+        image.image = UIImage(systemName: "volume.3.fill", withConfiguration: configurationSmall)
+        image.tintColor = .white
+        return image
+    }()
+    
+    private let mainStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 25
+        return stackView
+    }()
+    
+    private let labelsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private let timeLabelsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 1
+        return stackView
+    }()
+    
+    private let buttonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        stackView.alignment = .center
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
+    private let verticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        return stackView
+    }()
+    
+    private let volumeStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 11
+        return stackView
     }()
     
    //MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupView()
         constraints()
+        setupStackView()
         layer.addSublayer(gradientLayer)
         gradientLayer.zPosition = -1
        
-        backButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
+        backwardButton.addTarget(self, action: #selector(didTapBack), for: .touchUpInside)
         dismissButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         forwardButton.addTarget(self, action: #selector(didTapNext), for: .touchUpInside)
         playPauseButton.addTarget(self, action: #selector(didTapPlayPause), for: .touchUpInside)
         volumeSlider.addTarget(self, action: #selector(didChangeVolume), for: .valueChanged)
         currerenTimeSlider.addTarget(self, action: #selector(didChangeTime), for: .valueChanged)
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
-        //animateText()
+        animateText()
     }
     
     required init?(coder: NSCoder) {
@@ -222,11 +273,11 @@ final class TrackDetailView: UIView {
     
     // MARK: - Setup View
     
-    func setupView() {
+    private func setupView() {
         addSubview(trackImageView)
         addSubview(trackNameLabel)
         addSubview(artistNameLabel)
-        addSubview(backButton)
+        addSubview(backwardButton)
         addSubview(forwardButton)
         addSubview(playPauseButton)
         addSubview(volumeSlider)
@@ -236,96 +287,67 @@ final class TrackDetailView: UIView {
         addSubview(currentTimeLabel)
         addSubview(remainingTimeLabel)
         addSubview(dismissButton)
+        addSubview(mainStackView)
+        addSubview(labelsStackView)
+        addSubview(buttonsStackView)
+        addSubview(verticalStackView)
+        addSubview(volumeStackView)
+    }
+    
+    // MARK: - Setup StackView
+    
+    private func setupStackView() {
+        mainStackView.addArrangedSubview(dismissButton)
+        mainStackView.addArrangedSubview(trackImageView)
+        mainStackView.addArrangedSubview(labelsStackView)
+        mainStackView.addArrangedSubview(verticalStackView)
+        mainStackView.addArrangedSubview(buttonsStackView)
+        mainStackView.addArrangedSubview(volumeStackView)
         
+        labelsStackView.addArrangedSubview(trackNameLabel)
+        labelsStackView.addArrangedSubview(artistNameLabel)
+        
+        buttonsStackView.addArrangedSubview(backwardButton)
+        buttonsStackView.addArrangedSubview(playPauseButton)
+        buttonsStackView.addArrangedSubview(forwardButton)
+        
+        timeLabelsStackView.addArrangedSubview(currentTimeLabel)
+        timeLabelsStackView.addArrangedSubview(remainingTimeLabel)
+            
+        verticalStackView.addArrangedSubview(currerenTimeSlider)
+        verticalStackView.addArrangedSubview(timeLabelsStackView)
+        
+
+        volumeStackView.addArrangedSubview(minVolumeIcon)
+        volumeStackView.addArrangedSubview(volumeSlider)
+        volumeStackView.addArrangedSubview(maxVolumeIcon)
     }
     
     // MARK: - Constraints
     
     func constraints() {
         
-        dismissButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(5)
-            //make.top.equalTo(safeAreaInsets.top).offset(40)
-            make.centerX.equalToSuperview()
+        mainStackView.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().offset(-30)
+            make.bottom.equalToSuperview().offset(-30)
+            
         }
         
         trackImageView.snp.makeConstraints { make in
-            //make.left.right.equalToSuperview().inset(15)
-            
-            make.top.equalTo(dismissButton).offset(100)
-          //  make.top.equalToSuperview().offset(-15)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(UIScreen.main.bounds.width *  0.9) // Используйте долю ширины экрана
-            make.height.equalTo(UIScreen.main.bounds.width * 0.9)
-        }
-        
-        trackNameLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(20)
-            make.top.equalTo(trackImageView.snp.bottom).offset(20)
-           
-        }
-        
-        artistNameLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(20)
-            make.top.equalTo(trackNameLabel.snp.bottom).offset(5)
-        }
-        
-        currerenTimeSlider.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(20)
-            make.top.equalTo(artistNameLabel.snp.bottom).offset(25)
-            //make.top.equalToSuperview().offset(200)
-            make.width.equalToSuperview().multipliedBy(0.9)
-            
-        }
-        
-        currentTimeLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(20)
-            make.top.equalTo(currerenTimeSlider.snp.bottom).offset(10)
-            
-        }
-        
-        remainingTimeLabel.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(20)
-            make.top.equalTo(currerenTimeSlider.snp.bottom).offset(10)
-        }
-        
-        backButton.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(70)
-            make.top.equalTo(currerenTimeSlider.snp.bottom).offset(80)
-            
-        }
-        
-        playPauseButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(currerenTimeSlider.snp.bottom).offset(75)
-        }
-        
-        forwardButton.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(70)
-            make.top.equalTo(currerenTimeSlider.snp.bottom).offset(80)
+            make.left.equalToSuperview().offset(30)
+            make.right.equalToSuperview().offset(-30)
+            make.height.equalTo(trackImageView.snp.width)
         }
         
         minVolumeIcon.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(20)
-           // make.bottom.equalToSuperview().inset(105)
-            make.top.equalTo(backButton.snp.bottom).offset(70)
+            make.height.equalTo(17)
         }
         
         maxVolumeIcon.snp.makeConstraints { make in
-            make.right.equalToSuperview().inset(30)
-           // make.bottom.equalToSuperview().inset(105)
-            make.top.equalTo(forwardButton.snp.bottom).offset(70)
+            make.height.equalTo(17)
         }
-        
-        volumeSlider.snp.makeConstraints { make in
-            make.left.equalToSuperview().inset(50)
-            //make.bottom.equalToSuperview().inset(100)
-           // make.bottom.equalTo(playPauseButton).offset(75)
-            make.top.equalTo(playPauseButton.snp.bottom).offset(63)
-            make.width.equalToSuperview().multipliedBy(0.7)
-            
-        }
-        
     }
     
     // MARK: - Player Config
@@ -347,9 +369,9 @@ final class TrackDetailView: UIView {
                 }
                 
             }
+            
         } else {
             trackImageView.image = UIImage(systemName: "questionmark")
-            
         }
     }
     
@@ -366,7 +388,7 @@ final class TrackDetailView: UIView {
         currerenTimeSlider.value = 0
         enlargeImage()
         isPlaying = true
-        
+        animateText()
     }
     
     func configAddedTracks(_ viewModel: AddedTracks) {
@@ -381,10 +403,11 @@ final class TrackDetailView: UIView {
         currerenTimeSlider.value = 0
         enlargeImage()
         isPlaying = true
+        animateText()
         
     }
     
-    // MARK: - TrackImage animations
+    // MARK: - Animations
     
    private func enlargeImage() {
         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut) { [weak self] in
@@ -402,12 +425,13 @@ final class TrackDetailView: UIView {
     }
     
     private func animateText() {
-        
-        if trackNameLabel.text?.count ?? 0 > 30 {
+    
+        if trackNameLabel.text?.count ?? 0 > 25 {
             
-            let labelMid = self.trackNameLabel.frame.midX
-            let labelLHS = self.trackNameLabel.frame.minX - self.trackNameLabel.frame.width
-            let labelRHS = (self.trackNameLabel.frame.maxX) + (self.trackNameLabel.frame.width)
+            layoutIfNeeded()
+            let labelMid = trackNameLabel.frame.midX
+            let labelLHS = trackNameLabel.frame.minX - trackNameLabel.frame.width
+            let labelRHS = (trackNameLabel.frame.maxX) + (trackNameLabel.frame.width)
             let labelAnimate = CABasicAnimation(keyPath: "position.x")
             
             labelAnimate.fromValue = labelMid
@@ -424,12 +448,14 @@ final class TrackDetailView: UIView {
             let group = CAAnimationGroup()
             group.animations = [labelAnimate, labelAnimate1]
             group.duration = 20
-            group.repeatCount = .zero
+            group.repeatCount = .greatestFiniteMagnitude
             group.beginTime = 0
             trackNameLabel.layer.add(group, forKey: "basic")
+                
             
-            
-        }
+            } else {
+                trackNameLabel.layer.removeAllAnimations()
+            }
         
     }
     // MARK: - Background Color Config
@@ -443,7 +469,7 @@ final class TrackDetailView: UIView {
             ]
         }
     }
-    }
+}
         
     
     

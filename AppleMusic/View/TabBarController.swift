@@ -25,8 +25,8 @@ final class TabBarController: UITabBarController {
     
     private func setupTabs() {
         
-        let searchVc = createNav(title: "Library", image: UIImage(systemName: "magnifyingglass"), vc: SearchViewController())
-        let libraryVc = createNav(title: "Search", image: UIImage(named: "library"), vc: LibraryViewController())
+        let searchVc = createNav(title: "Поиск", image: UIImage(systemName: "magnifyingglass"), vc: SearchViewController())
+        let libraryVc = createNav(title: "Медиатека", image: UIImage(named: "library"), vc: LibraryViewController())
         
         setViewControllers([searchVc,libraryVc], animated: true)
         

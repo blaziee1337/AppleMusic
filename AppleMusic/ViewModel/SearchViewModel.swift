@@ -23,9 +23,9 @@ class SearchViewModel {
             if error == nil {
                 
                 guard let searchResponse = searchResponse else { return }
-                
+
                 let sortedTracks = searchResponse.results.sorted { firstItem, secondItem in
-                    
+
                     return firstItem.trackName.compare(secondItem.trackName) == ComparisonResult.orderedAscending
                 }
                 self?.tracks = sortedTracks

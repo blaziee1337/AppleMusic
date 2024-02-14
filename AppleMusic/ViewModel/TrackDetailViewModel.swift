@@ -54,7 +54,7 @@ class TrackDetailViewModel {
             NotificationCenter.default.addObserver(self, selector: #selector(trackDidEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
             NotificationCenter.default.addObserver(self, selector: #selector(addedTrackDidEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
             player.automaticallyWaitsToMinimizeStalling = false
-            player.volume = 0.5
+           
         
         
     }
