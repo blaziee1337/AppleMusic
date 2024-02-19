@@ -6,5 +6,6 @@
         <attribute name="previewUrl" optional="YES" attributeType="String"/>
         <attribute name="trackImage" optional="YES" attributeType="String"/>
         <attribute name="trackName" optional="YES" attributeType="String"/>
+        <attribute name="trackURL" optional="YES" attributeType="String"/>
     </entity>
 </model>

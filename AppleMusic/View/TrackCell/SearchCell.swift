@@ -131,6 +131,7 @@ final class SearchCell: UITableViewCell {
         collectionNameLabel.text = viewModel.collectionName
         guard let url = viewModel.trackImage else { return }
         setImage(urlString: url)
+        
     }
 }
 

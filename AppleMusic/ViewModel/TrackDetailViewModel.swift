@@ -7,8 +7,12 @@
 
 import UIKit
 import AVFoundation
+import CoreData
 
 class TrackDetailViewModel {
+    
+    let context: NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+    let fetchRequest: NSFetchRequest = AddedTracks.fetchRequest()
     
     private let trackDetailVC = TrackDetailViewController()
     private let player = AVPlayer()
@@ -46,16 +50,16 @@ class TrackDetailViewModel {
     // MARK: - Player setup
     
     private func playTrack(preview: String?) {
-            guard let url = URL(string: preview ?? "") else { return }
-            let playerItem = AVPlayerItem(url: url)
-            player.replaceCurrentItem(with: playerItem)
-            player.play()
-            try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
-            NotificationCenter.default.addObserver(self, selector: #selector(trackDidEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
-            NotificationCenter.default.addObserver(self, selector: #selector(addedTrackDidEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
-            player.automaticallyWaitsToMinimizeStalling = false
-           
-        
+                guard let url = URL(string: preview ?? "") else { return }
+                let playerItem = AVPlayerItem(url: url)
+                player.replaceCurrentItem(with: playerItem)
+                player.play()
+                try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+                NotificationCenter.default.addObserver(self, selector: #selector(trackDidEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+                NotificationCenter.default.addObserver(self, selector: #selector(addedTrackDidEnded), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+                player.automaticallyWaitsToMinimizeStalling = false
+                
+            
         
     }
     
