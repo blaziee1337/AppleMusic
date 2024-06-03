@@ -20,5 +20,5 @@ Simple apple music app clone
 - Динамический Background(меняет цвет в зависимости от цвета изображения)
 
 # Screenshots
-|<img src="https://i.ibb.co/xjRdgq7/Simulator-Screen-Shot-i-Phone-14-Pro-2024-02-14-at-17-11-37.png" width="400" height="800"> | <img src="https://i.ibb.co/F0vxDBT/Simulator-Screen-Shot-i-Phone-14-Pro-2024-02-14-at-17-11-44.png" width="400" height="800">
-|<img src="https://i.ibb.co/M5grrj4/Simulator-Screen-Shot-i-Phone-14-Pro-2024-02-15-at-14-23-38.png" width="400" height="800"> | <img src="https://i.ibb.co/sgNMGLx/Simulator-Screen-Shot-i-Phone-14-Pro-2024-02-14-at-17-12-48.png" width="400" height="800"> |
+|<img src="https://i.ibb.co/xjRdgq7/Simulator-Screen-Shot-i-Phone-14-Pro-2024-02-14-at-17-11-37.png" width="222" height="480"> | <img src="https://i.ibb.co/F0vxDBT/Simulator-Screen-Shot-i-Phone-14-Pro-2024-02-14-at-17-11-44.png" width="222" height="480">
+|<img src="https://i.ibb.co/M5grrj4/Simulator-Screen-Shot-i-Phone-14-Pro-2024-02-15-at-14-23-38.png" width="222" height="480"> | <img src="https://i.ibb.co/sgNMGLx/Simulator-Screen-Shot-i-Phone-14-Pro-2024-02-14-at-17-12-48.png" width="222" height="480"> |
